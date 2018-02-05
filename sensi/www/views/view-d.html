@@ -1,0 +1,29 @@
+<div id="sensi-view-render">
+    <div class="container">
+        <h1>Play with me some more</h1>
+        <button class="center" v-on:click="next">{{ nextText }}</button>
+        Another code playground ... 
+    </div>
+</div>
+
+<!-- JS -->
+<script>
+
+    Sensi.Core.storeViewInfo({pageTitle:Sensi.Localization.translate("VIEW_D_HEADER_TITLE")});
+    var newViewRender = Sensi.Core.getViewRenderID($("#sensi-view-render"));
+
+    new Vue({
+            el: '#'+newViewRender,
+            data: {
+                nextText: Sensi.Localization.translate("NEXT")
+            },
+            methods: {
+                next: function () {
+                    Sensi.Core._HEADER.showBack = true;
+                    Sensi.Core.loadView("views/view-d-subview.html");
+                }
+            }  
+        })
+
+</script>
+

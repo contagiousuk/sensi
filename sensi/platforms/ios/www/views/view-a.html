@@ -1,0 +1,35 @@
+<div id="sensi-view-render">
+    <div class="container">
+        <h1>Welcome to Sensi, your friendly super-simple Single Page App framework</h1>
+        
+        <p>
+            This framework aims to simplify SPA development by using a jQuery as a "backend base" for DOM referencing and framework work-horsing ( such as html view loads ) alongside Vue's "frontend base" for templates, data injection and events ( and whatever else you want to do with Vue ). Furthermore it is built on top of Cordova for app deployment, however you can run it directly in Safari or Firefox (quickly, if you like, without a localhost) for ease and speed of development. To deploy and run in Cordova for your device, please follow the guide here: <a href="https://cordova.apache.org" target="new">https://cordova.apache.org</a>
+        <p>
+            Sensi is inspired by the classic <a href="https://en.wikipedia.org/wiki/Sensible_Soccer" target="new">Sensible Soccer</a> video game, because we play it all the time for its purity and simplicity combined with just very, very good gameplay! Pick up and Play at its best. Hopefully this framework provides a similar kind of experience.
+        <p>
+            Sensi creates &amp; appends views to the DOM and keeps them in memory as you request subviews, as you go back, these subviews are then destroyed. This is all done with a standard sliding page transition - to see how this works, try viewing the page source and clicking NEXT below.
+
+            <button class="center" v-on:click="next">{{ nextText }}</button>
+    </div>
+</div>
+
+<!-- JS -->
+<script>
+
+    Sensi.Core.storeViewInfo({pageTitle:Sensi.Localization.translate("VIEW_A_HEADER_TITLE")});
+    var newViewRender = Sensi.Core.getViewRenderID($("#sensi-view-render"));
+
+    new Vue({
+            el: '#'+newViewRender,
+            data: {
+                nextText: Sensi.Localization.translate("NEXT")
+            },
+            methods: {
+                next: function () {
+                    Sensi.Core._HEADER.showBack = true;
+                    Sensi.Core.loadView("views/view-a-subview.html");
+                }
+            }  
+        })
+
+</script>

@@ -1,0 +1,162 @@
+/*
+Copyright (c) 2018 Contagious (UK) Ltd.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
+/**
+ * Do not remove or edit this
+ */
+#SensiViewRoot {
+    position: relative;
+    width:100%;
+}
+
+/**
+ * Do not remove or edit this
+ */
+.sensi-view {
+    float:left;
+    clear:both;
+    position: absolute; 
+    width:100%;
+    height:inherit;
+    overflow:auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+
+/**
+ * Edit the following divs to suit your app as required
+ */
+#SensiSPA header {
+    z-index:1;
+    position:fixed;
+    top:0px;
+    left:0;
+    width:100%;
+    height:50px;
+    background-color: #000;
+    border-bottom:1px solid #222;  
+}
+
+#SensiSPA header .title {
+    top:0px;
+    left:50px;
+    position: fixed;
+    line-height:50px;
+    font-size:24px;
+    color:#fff;
+    width:calc(100% - 100px);
+    text-align:center;
+    color:#ff00ff;
+}
+
+#SensiSPA header button.back {
+    border:0;
+    width:50px;
+    height:50px;
+    background: transparent url(../images/header/button-back.png) center center no-repeat;
+    background-size:50px 50px;
+}
+
+#SensiSPA header button.right {
+    position:fixed;
+    right:0;
+    top:0px;
+    width:50px;
+    height:50px;
+    background:#fff;
+    color:#000;
+    border: 0;
+    border-radius: 0;
+}
+
+#SensiSPA footer {
+    z-index:2;
+    position:fixed;
+    bottom:0;
+    width:100%;
+    height:60px;
+    background:#000;
+    border-top:1px solid #222;
+}
+
+#SensiSPA footer .icon {
+    font-size:14px;
+    width:25%;
+    height:inherit;
+    float:left;
+    text-align:center;
+    color:#fff;
+}
+
+#SensiSPA footer #tabBar-a {
+    background:url("../images/footer/icon-a.png") center 0 no-repeat;
+    background-size: 50px 50px;
+}
+
+#SensiSPA footer #tabBar-a.active {
+    background:#ff00ff url("../images/footer/icon-a.png") center 0 no-repeat;
+    background-size: 50px 50px;
+}
+
+#SensiSPA footer #tabBar-b {
+    background:url("../images/footer/icon-b.png") center 0 no-repeat;
+    background-size: 50px 50px;
+}
+
+#SensiSPA footer #tabBar-b.active {
+    background:#ff00ff url("../images/footer/icon-b.png") center 0 no-repeat;
+    background-size: 50px 50px;
+}
+
+#SensiSPA footer #tabBar-c {
+    background:url("../images/footer/icon-c.png") center 0 no-repeat;
+    background-size: 50px 50px;
+}
+
+#SensiSPA footer #tabBar-c.active {
+    background:#ff00ff url("../images/footer/icon-c.png") center 0 no-repeat;
+    background-size: 50px 50px;
+}
+
+#SensiSPA footer #tabBar-d {
+    background:url("../images/footer/icon-d.png") center 0 no-repeat;
+    background-size: 50px 50px;
+}
+
+#SensiSPA footer #tabBar-d.active {
+    background:#ff00ff url("../images/footer/icon-d.png") center 0 no-repeat;
+    background-size: 50px 50px;
+}
+
+#SensiViewRoot button {
+    width:100px;
+    height:50px;
+    background-color: #666;
+    border:0;
+    color:#fff;
+}
+
+#SensiViewRoot button.center {
+    margin:20px calc(50% - 50px);
+}
+
+

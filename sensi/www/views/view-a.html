@@ -1,0 +1,67 @@
+<div id="sensi-view-render">
+    <div class="container">
+        <h1>Welcome to Sensi, your friendly super-simple Single Page App framework *</h1>
+        
+        <p>
+        <h2>Overview</h2>
+            This framework presents a way of doing SPA development by using jQuery as the "backend base" for DOM referencing and framework work-horsing ( such as html view loads ) alongside Vue's "frontend base" for templating, data injection, app functions and event handling ( and whatever else you want to do with Vue ). Furthermore it is built on top of Cordova for app deployment, however you can run it directly in Safari or Firefox (quickly, if you like, without a localhost) for ease and speed of development. To deploy and run in Cordova for your device, please follow the guide here: <a href="https://cordova.apache.org" target="new">https://cordova.apache.org</a>
+
+        <p>
+        
+        <h2>Inspiration</h2>
+            Sensi is inspired by the classic <a href="https://en.wikipedia.org/wiki/Sensible_Soccer" target="new">Sensible Soccer</a> video game, because we play it all the time for its purity and simplicity combined with just very, very good gameplay! Pick up and Play at its best. Hopefully this framework provides a similar kind of experience **.
+
+            
+        <h2>Default UI</h2>
+            Sensi comes pre-packaged with a traditional "View Controller" style app header (like an iOS navigation controller ) &amp; footer ( like an iOS tab bar ).
+
+        <p>
+            Sensi creates &amp; appends views to the DOM and keeps them in memory as you request subviews, as you go back, these subviews are then destroyed ***. 
+
+        <p>
+            This is all done with a standard sliding page transition - see how this works by clicking NEXT below and inspecting the DOM in the page source.
+
+            <button class="center" v-on:click="next">{{ nextText }}</button>
+
+        <p>
+            Views (like this one) are all standalone HTML files and contained within the "views" folder, however as long as they follow the same pattern you can put them where ever you like.
+
+        <hr>
+
+        <p>
+            <small>* Probably not for "hardcore" devs who prefer complex, steep learning curve solutions ( or high-end solutions ) and live and die by things like Angular, Bootstrap, Ionic, Webpack, React etc.</small>
+        <p>
+            <small>** And encourage you to learn a bit more about what happens "under-the-hood" and be less "black box" about how things work. </small>
+        <p>
+            <small>*** It should be simple and clear to understand, so re-write it if you want (just don't remove our open source license credits) and be at the mercy of yourself, not another high-end framework!</small>
+    </div>
+</div>
+
+<!-- JS -->
+<script>
+
+    Sensi.Core.storeViewInfo({pageTitle:Sensi.Localization.translate("VIEW_A_HEADER_TITLE")});
+    var newViewRender = Sensi.Core.getViewRenderID($("#sensi-view-render"));
+
+    new Vue({
+            el: '#'+newViewRender,
+            data: {
+                nextText: Sensi.Localization.translate("NEXT")
+            },
+            methods: {
+                next: function () {
+                    Sensi.Core._HEADER.showBack = true;
+                    Sensi.Core.loadView("views/view-a-subview.html", false, viewASubViewVisible);
+                }
+            }  
+        })
+
+    /**
+     *
+     */
+    function viewASubViewVisible() {
+        console.log("viewASubViewVisible");
+    }
+
+
+</script>

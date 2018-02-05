@@ -1,0 +1,1 @@
+{/* just a stub so we can quickly view this directly on the web, NOTE: real cordova replaces this when we are in an App Context */}

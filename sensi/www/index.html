@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<!--
+Copyright (c) 2018 Contagious (UK) Ltd.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+            * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+    
+        <!-- Note this Content-Security-Policy is essential for thinsg like Underscore template, Google Map tiles as well as console logging in Xcode -->
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com *; style-src 'self' 'unsafe-inline' 'unsafe-eval' *; media-src *; img-src 'self' data: content: *; script-src * 'self' 'unsafe-inline' 'unsafe-eval';">
+        <meta charset="UTF-8">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        
+        <link rel="stylesheet" type="text/css" href="css/sensi.css"><!-- targets only Sensi objects -->
+        <link rel="stylesheet" type="text/css" href="css/app.css"> <!-- note you can use whatever CSS you want - Bootstrap or whatever -->
+        <title>Sensi</title>
+
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/jquery.1.10.2.min.js"></script>
+        <script type="text/javascript" src="js/vue.js"></script>
+        <script type="text/javascript" src="js/sensi.js"></script>
+    </head>
+
+    <body>
+
+        <!-- not recommended to edit this -->
+        <div id="SensiSPA">
+            <header class="sensi-fixed">
+                <button v-if="showBack" class="back" v-on:click="back"></button>
+                <div class="title"></div>
+                <button v-if="showRightButton" class="right" v-on:click="headerButtonRightCTA">{{ headerButtonRightTitle }}</button>
+            </header>
+
+            <!-- this is where views get loaded -->
+            <div id="SensiViewRoot"></div>
+
+            <footer class="sensi-fixed">
+                <div id="tabBar-a" class="icon active" v-on:click="tabAPressed($event)">{{ tabA }}</div>
+                <div id="tabBar-b" class="icon" v-on:click="tabBPressed($event)">{{ tabB }}</div>
+                <div id="tabBar-c" class="icon" v-on:click="tabCPressed($event)">{{ tabC }}</div>
+                <div id="tabBar-d" class="icon" v-on:click="tabDPressed($event)">{{ tabD }}</div>
+            </footer>
+        </div>
+
+        <script type="text/javascript">
+
+
+            // setup the cordova device ready event
+            document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+            
+            // deviceready Event Handler for Cordova
+            function onDeviceReady() {
+                console.log("------> onDeviceReady");
+
+                // this is critical for iOS to disable fixed item scrolling
+                var fixedItems = document.getElementsByClassName("sensi-fixed");
+                for (var i = 0; i < fixedItems.length; i++) {
+                    fixedItems[i].addEventListener('touchmove', function(e) {
+                        e.preventDefault();
+                    }, false);
+                }
+
+                // do whatever else you need here
+            }
+
+            initApp();
+
+
+            /** 
+             *
+             */
+            function initApp() {
+
+                // create the app header
+                Sensi.Core._HEADER = new Vue({
+                    el: '#SensiSPA header',
+                    data: {
+                        showBack: false,
+                        showRightButton: true,
+                        headerButtonRightTitle: Sensi.Localization.translate("HEADER_BUTTON_RIGHT_TITLE")
+                    },
+                    methods: {
+                        back: function () {
+                            Sensi.Core.back();
+                            if (Sensi.Core.VIEW_LEVEL == 0) {
+                                this.showBack = false;
+                            }
+                        },
+                        headerButtonRightCTA: function () {
+                            this.showBack = false;
+                            if (Sensi.Localization.CURRENT_LANGUAGE=="EN") {
+                                Sensi.Localization.changeLanguage("JP");
+                            } else {
+                                Sensi.Localization.changeLanguage("EN");
+                            } 
+                        }
+                    },
+                    created: function () {
+                        Sensi.Core.storeHeaderHeight($("#SensiSPA header").height());
+                    }
+                })
+
+                // create the app footer
+                Sensi.Core._FOOTER = new Vue({
+                    el: '#SensiSPA footer',
+                    data: {
+                        tabA: Sensi.Localization.translate("VIEW_A_FOOTER_ICON_TITLE"),
+                        tabB: Sensi.Localization.translate("VIEW_B_FOOTER_ICON_TITLE"),
+                        tabC: Sensi.Localization.translate("VIEW_C_FOOTER_ICON_TITLE"),
+                        tabD: Sensi.Localization.translate("VIEW_D_FOOTER_ICON_TITLE")
+                    },
+                    methods: {
+                        tabAPressed: function (event) {
+                            Sensi.Core.tabBarIconPressed(event);
+                            Sensi.Core.loadView("views/view-a.html", true);
+                        },
+                        tabBPressed: function (event) {
+                            Sensi.Core.tabBarIconPressed(event);
+                            Sensi.Core.loadView("views/view-b.html", true);
+                        },
+                        tabCPressed: function (event) {
+                            Sensi.Core.tabBarIconPressed(event);
+                            Sensi.Core.loadView("views/view-c.html", true);
+                        },
+                        tabDPressed: function (event) {
+                            Sensi.Core.tabBarIconPressed(event);
+                            Sensi.Core.loadView("views/view-d.html", true);
+                        }
+                    },
+                    created: function () {
+                        Sensi.Core.storeFooterHeight($("#SensiSPA footer").height());
+                        // adjust icon titles to display at bottom
+                        $("#SensiSPA footer .icon").css({"line-height" : $("#SensiSPA footer .icon").height()*1.6+"px"});
+                    }
+                }) 
+
+                // load the initial view
+                Sensi.Core.loadView("views/view-a.html", true);
+
+            }
+
+            
+        </script>
+
+    </body>
+</html>

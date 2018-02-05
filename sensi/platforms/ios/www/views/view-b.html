@@ -1,0 +1,47 @@
+<div id="sensi-view-render">
+    <div class="container">
+        <h1>Details on Sensi JS</h1>
+        <button class="center" v-on:click="next">{{ nextText }}</button>
+        <p>
+            Feel free to change it to suit the needs of your app, but Sensi.js manages the following:
+            <ul>
+                <li>Header layout and data</li>
+                <li>Footer layout as a "tab bar" </li>
+                <li>View stacks and transitions</li>
+                <li>Easy localization</li>
+                <li>Recommended "Logic" object</li>
+            </ul>
+
+        <h2>Header</h2>
+            Sensi comes pre-packaged with a traditional "View Controller" style app header. It should be easy to modify this with some knowledge of Vue &amp; CSS - see the template object Sensi.Core._HEADER in index.html 
+        <p>
+            When you create a Sensi view you should store any of its info (it is up to you what this is) to be able to set &amp; retrieve it later as you need. If you store a string against an object "pageTitle" it will set your page title in the header.
+        <p>
+            The BACK button shows or hides as you load/unload sub views from your main view - just adjust this as required for Android. You're not stupid - you can do it :)
+
+        <h2>Footer</h2>
+            Sensi comes pre-packaged with a traditional "View Controller" style app footer - in this case a 4 icon tab bar. It should be easy to modify this with some knowledge of Vue &amp; CSS - see the template object Sensi.Core._FOOTER in index.html 
+
+    </div>
+</div>
+
+<!-- JS -->
+<script>
+
+    Sensi.Core.storeViewInfo({pageTitle:Sensi.Localization.translate("VIEW_B_HEADER_TITLE")});
+    var newViewRender = Sensi.Core.getViewRenderID($("#sensi-view-render"));
+
+    new Vue({
+            el: '#'+newViewRender,
+            data: {
+                nextText: Sensi.Localization.translate("NEXT")
+            },
+            methods: {
+                next: function () {
+                    Sensi.Core._HEADER.showBack = true;
+                    Sensi.Core.loadView("views/view-b-subview.html");
+                }
+            }  
+        })
+
+</script>
