@@ -70,6 +70,7 @@ SOFTWARE.
 
     <body>
 
+        <!-- not recommended to edit this -->
         <div id="SensiSPA">
             <header class="sensi-fixed">
                 <button v-if="showBack" class="back" v-on:click="back"></button>
@@ -109,72 +110,83 @@ SOFTWARE.
                 // do whatever else you need here
             }
 
-            // create the app header
-            Sensi.Core._HEADER = new Vue({
-                el: '#SensiSPA header',
-                data: {
-                    showBack: false,
-                    showRightButton: true,
-                    headerButtonRightTitle: Sensi.Localization.translate("HEADER_BUTTON_RIGHT_TITLE")
-                },
-                methods: {
-                    back: function () {
-                        Sensi.Core.back();
-                        if (Sensi.Core.VIEW_LEVEL == 0) {
+            initApp();
+
+
+            /** 
+             *
+             */
+            function initApp() {
+
+                // create the app header
+                Sensi.Core._HEADER = new Vue({
+                    el: '#SensiSPA header',
+                    data: {
+                        showBack: false,
+                        showRightButton: true,
+                        headerButtonRightTitle: Sensi.Localization.translate("HEADER_BUTTON_RIGHT_TITLE")
+                    },
+                    methods: {
+                        back: function () {
+                            Sensi.Core.back();
+                            if (Sensi.Core.VIEW_LEVEL == 0) {
+                                this.showBack = false;
+                            }
+                        },
+                        headerButtonRightCTA: function () {
                             this.showBack = false;
+                            if (Sensi.Localization.CURRENT_LANGUAGE=="EN") {
+                                Sensi.Localization.changeLanguage("JP");
+                            } else {
+                                Sensi.Localization.changeLanguage("EN");
+                            } 
                         }
                     },
-                    headerButtonRightCTA: function () {
-                        this.showBack = false;
-                        if (Sensi.Localization.CURRENT_LANGUAGE=="EN") {
-                            Sensi.Localization.changeLanguage("JP");
-                        } else {
-                            Sensi.Localization.changeLanguage("EN");
-                        } 
+                    created: function () {
+                        Sensi.Core.storeHeaderHeight($("#SensiSPA header").height());
                     }
-                },
-                created: function () {
-                    Sensi.Core.storeHeaderHeight($("#SensiSPA header").height());
-                }
-            })
+                })
 
-            // create the app footer
-            Sensi.Core._FOOTER = new Vue({
-                el: '#SensiSPA footer',
-                data: {
-                    tabA: Sensi.Localization.translate("VIEW_A_FOOTER_ICON_TITLE"),
-                    tabB: Sensi.Localization.translate("VIEW_B_FOOTER_ICON_TITLE"),
-                    tabC: Sensi.Localization.translate("VIEW_C_FOOTER_ICON_TITLE"),
-                    tabD: Sensi.Localization.translate("VIEW_D_FOOTER_ICON_TITLE")
-                },
-                methods: {
-                    tabAPressed: function (event) {
-                        Sensi.Core.tabBarIconPressed(event);
-                        Sensi.Core.loadView("views/view-a.html", true);
+                // create the app footer
+                Sensi.Core._FOOTER = new Vue({
+                    el: '#SensiSPA footer',
+                    data: {
+                        tabA: Sensi.Localization.translate("VIEW_A_FOOTER_ICON_TITLE"),
+                        tabB: Sensi.Localization.translate("VIEW_B_FOOTER_ICON_TITLE"),
+                        tabC: Sensi.Localization.translate("VIEW_C_FOOTER_ICON_TITLE"),
+                        tabD: "DDD",
                     },
-                    tabBPressed: function (event) {
-                        Sensi.Core.tabBarIconPressed(event);
-                        Sensi.Core.loadView("views/view-b.html", true);
+                    methods: {
+                        tabAPressed: function (event) {
+                            Sensi.Core.tabBarIconPressed(event);
+                            Sensi.Core.loadView("views/view-a.html", true);
+                        },
+                        tabBPressed: function (event) {
+                            Sensi.Core.tabBarIconPressed(event);
+                            Sensi.Core.loadView("views/view-b.html", true);
+                        },
+                        tabCPressed: function (event) {
+                            Sensi.Core.tabBarIconPressed(event);
+                            Sensi.Core.loadView("views/view-c.html", true);
+                        },
+                        tabDPressed: function (event) {
+                            Sensi.Core.tabBarIconPressed(event);
+                            Sensi.Core.loadView("views/view-d.html", true);
+                        }
                     },
-                    tabCPressed: function (event) {
-                        Sensi.Core.tabBarIconPressed(event);
-                        Sensi.Core.loadView("views/view-c.html", true);
-                    },
-                    tabDPressed: function (event) {
-                        Sensi.Core.tabBarIconPressed(event);
-                        Sensi.Core.loadView("views/view-d.html", true);
+                    created: function () {
+                        Sensi.Core.storeFooterHeight($("#SensiSPA footer").height());
+                        // adjust icon titles to display at bottom
+                        $("#SensiSPA footer .icon").css({"line-height" : $("#SensiSPA footer .icon").height()*1.6+"px"});
                     }
-                },
-                created: function () {
-                    Sensi.Core.storeFooterHeight($("#SensiSPA footer").height());
-                    // adjust icon titles to display at bottom
-                    $("#SensiSPA footer .icon").css({"line-height" : $("#SensiSPA footer .icon").height()*1.6+"px"});
-                }
-            }) 
+                }) 
 
-            // load the initial view
-            Sensi.Core.loadView("views/view-a.html", true);
+                // load the initial view
+                Sensi.Core.loadView("views/view-a.html", true);
 
+            }
+
+            
         </script>
 
     </body>

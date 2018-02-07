@@ -1,7 +1,41 @@
 <div id="sensi-view-render">
     <div class="container">
-        <h1>Details on Sensi JS</h1>
-        <button class="center" v-on:click="next">{{ nextText }}</button>
+
+        <!-- index.html -->
+        <h1>About <code>index.html</code></h1>
+
+        <p>
+            This is built on top of the Cordova base and this file contains the includes for all the JS &amp; CSS that your project should need. It is not recommended to edit the HTML here unless you really know what you are doing. 
+        <p>
+            The JS function <code>initApp</code> is where the main header and footer templates are created. Edit these and the corresponding CSS in <code>sensi.css</code> to suit your needs.
+
+        <p>
+            Finally <code>initApp</code> loads our first app view - e.g. <code>Sensi.Core.loadView("views/view-a.html", true);</code>
+
+        <!-- sensi.css -->
+        <h1>Regarding <code>sensi.css</code></h1>
+        
+        <p>
+            The <code>sensi.css</code> file contains all the core CSS for the standard "Header &amp; Tabbar" app design pattern. It also sets up required CSS for the Sensi View Root and Sensi View class to operate as expected.
+
+        <p>
+        You can consider the other CSS objects in there as "Editable on a per app basis". For example if you don't want a footer at all, then do:
+        <p>
+            <code>
+                #SensiSPA footer {
+                height:0;
+            }
+
+            </code>
+        <p>
+            Just use your knowledge of HTML &amp; CSS to design what you need.
+        <p>
+            You could go to town and use <a href="https://vuetifyjs.com">Vuetify</a> to hook in with Vue if you want. Whatever style and level suits you.
+
+        
+        <!-- sensi.js -->
+        <h1>Explaining <code>sensi.js</code></h1>
+        
         <p>
             Feel free to change it to suit the needs of your app, but Sensi.js manages the following:
             <ul>
@@ -9,18 +43,40 @@
                 <li>Footer layout as a "tab bar" </li>
                 <li>View stacks and transitions</li>
                 <li>Easy localization</li>
+                <li>Recommended "Utils" object</li>
                 <li>Recommended "Logic" object</li>
             </ul>
 
         <h2>Header</h2>
-            Sensi comes pre-packaged with a traditional "View Controller" style app header. It should be easy to modify this with some knowledge of Vue &amp; CSS - see the template object Sensi.Core._HEADER in index.html 
         <p>
-            When you create a Sensi view you should store any of its info (it is up to you what this is) to be able to set &amp; retrieve it later as you need. If you store a string against an object "pageTitle" it will set your page title in the header.
+            Sensi comes pre-packaged with a traditional "View Controller" style app header. It should be easy to modify this with some knowledge of Vue &amp; CSS - see the template object <code>Sensi.Core._HEADER</code> in index.html 
+        <p>
+            When you create a Sensi view you should store any of its info (it is up to you what this is) to be able to set &amp; retrieve it later as you need. If you store a string against an object <code>pageTitle</code> it will set your page title in the header.
         <p>
             The BACK button shows or hides as you load/unload sub views from your main view - just adjust this as required for Android. You're not stupid - you can do it :)
 
         <h2>Footer</h2>
-            Sensi comes pre-packaged with a traditional "View Controller" style app footer - in this case a 4 icon tab bar. It should be easy to modify this with some knowledge of Vue &amp; CSS - see the template object Sensi.Core._FOOTER in index.html 
+        <p>
+            Sensi comes pre-packaged with a traditional "View Controller" style app footer - in this case a 4 icon tab bar. Please find it easy to modify this with some knowledge of Vue &amp; CSS - see the template object <code>Sensi.Core._FOOTER</code> in index.html
+
+        <h2>View stacks and view transitions</h2>
+        <p>
+            Sensi stores data against views in <code>Sensi.Core.VIEW_DATA</code> - it is up to you to put what you want in here. There is a function which you can use to reference your info with <code>Sensi.Core.getViewInfo(Sensi.Core.VIEW_LEVEL)</code>
+        <p>
+            A key feature of Sensi are the main view transitions which make it feel more like and app and less like a webpage trying to be an app. Sensi JS uses <code>jQuery.animate()</code> with callbacks to acheive this. You could replace it with your favorite JS animation engine as required - just keep the principles in place!
+
+        <h2>Easy localization</h2>
+            It's always good to have your app prepared for a multiple language, Sensi contains this in principle with a basic &amp; light-weight implementation - you can add strings to the Localization object <code>Sensi.Localization.EN</code> as you need and reference with <code>Sensi.Localization.translate("MY_STRING_ID")</code>
+
+        <h2>Recommended "Utils" object</h2>
+        <p>
+            This is a stub to add to as you like! The idea of "utility" style functions being in one place is introduced. You don't have to use this.
+
+        <h2>Recommended "Logic" object</h2>
+        <p>
+            This is another stub to add to as you like! As an app gets more complicated it makes sense to conceptually centralize your functions. You could of course just add another JS file and put stuff in there - it's your choice.
+
+        <button class="center" v-on:click="next">{{ nextText }}</button>
 
     </div>
 </div>
