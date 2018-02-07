@@ -84,6 +84,8 @@
     var newViewRender = Sensi.Core.getViewRenderID($("#sensi-view-render"));
     Sensi.Core.storeViewInfo({pageTitle:newViewRender}); // at a minimum it is crucial to store the page title info
 
+    console.log("XXX"+XXX);
+
     new Vue({
             el: '#'+newViewRender,
             data: {
