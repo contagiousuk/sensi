@@ -25,6 +25,7 @@ buildscript {
         maven {
             url "https://maven.google.com"
         }
+        google()
     }
 
     // Switch the Android Gradle plugin version requirement depending on the
@@ -32,7 +33,7 @@ buildscript {
     // http://tools.android.com/tech-docs/new-build-system/version-compatibility
     // and https://issues.apache.org/jira/browse/CB-8143
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.android.tools.build:gradle:3.1.0'
     }
 }
 
